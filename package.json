@@ -1,6 +1,10 @@
 {
   "name": "order-pay",
   "private": true,
+  "version": "1.0.0",
+  "repository": "https://github.com/Arpitkatiyar1/order-pay",
+  "author": "Arpit Katiyar <ktrarpit@gmail.com>",
+  "license": "MIT",
   "workspaces": [
     "apps/*"
   ],
