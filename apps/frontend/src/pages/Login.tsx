@@ -11,22 +11,21 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    // TODO: Replace with real backend API call
     try {
-      // Example API call (replace URL and logic as needed)
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('http://localhost:8000/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      }
       const data = await response.json();
-      localStorage.setItem('token', data.token); // Use real token from backend
-      navigate('/');
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
+      if (response.ok && data.access_token) {
+        localStorage.setItem('token', data.access_token);
+        navigate('/dashboard'); // Change to your protected route
+      } else {
+        setError(data.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      setError('Network error');
     }
   };
 
